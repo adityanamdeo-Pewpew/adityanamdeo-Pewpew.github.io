@@ -12,7 +12,7 @@ const socials = [
   { Icon: Github, label: "GitHub", href: "https://github.com/adityanamdeo-Pewpew" },
   { Icon: LinkedinIcon, label: "LinkedIn", href: "https://www.linkedin.com/in/aditya-namdeo-aa21b5368/" },
   { Icon: Instagram, label: "Instagram", href: "https://instagram.com/" },
-  { Icon: Twitter, label: "Twitter", href: "https://twitter.com/" },
+  { Icon: Twitter, label: "Twitter", href: "https://x.com/Aditya_Namdeo_" },
   { Icon: Mail, label: "Email", href: "mailto:your.email@domain.com" },
 ];
 
