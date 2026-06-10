@@ -101,7 +101,7 @@ try {
               <div className="p-5 font-mono text-sm space-y-2">
                 <div>
                   <span className="text-[var(--cyan)]">[MAIL]</span>{" "}
-                  <a href="mailto:anni.namdeo@gmail.com" className="underline decoration-dotted underline-offset-4 hover:text-[var(--neon)] transition-colors">
+                  <a href="https://mail.google.com/mail/?view=cm&fs=1&to=anni.namdeo@gmail.com" className="underline decoration-dotted underline-offset-4 hover:text-[var(--neon)] transition-colors">
                     [ DECRYPT_MAILTO ]
                   </a>
                 </div>
