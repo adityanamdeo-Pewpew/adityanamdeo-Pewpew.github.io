@@ -24,6 +24,9 @@ export function Contact() {
     email: "",
     message: "",
   });
+  const [status, setStatus] = useState<
+  "idle" | "loading" | "success" | "error"
+>("idle");
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -33,29 +36,40 @@ export function Contact() {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
   e.preventDefault();
 
-  try {
-    await emailjs.send(
-      "service_ul7906m",
-      "template_oxh8c7i",
-      {
-        name: formData.name,
-        email: formData.email,
-        message: formData.message,
-      },
-      "7qHJGunVMO9mr05af"
-    );
+  setStatus("loading");
 
-    alert("TRANSMISSION_SUCCESSFUL ✅");
+try {
+  await emailjs.send(
+    "service_ul7906m",
+    "template_oxh8c7i",
+    {
+      name: formData.name,
+      email: formData.email,
+      message: formData.message,
+    },
+    "7qHJGunVMO9mr05af"
+  );
 
-    setFormData({
-      name: "",
-      email: "",
-      message: "",
-    });
-  } catch (error) {
-    console.error(error);
-    alert("TRANSMISSION_FAILED ❌");
-  }
+  setStatus("success");
+
+  setFormData({
+    name: "",
+    email: "",
+    message: "",
+  });
+
+  setTimeout(() => {
+    setStatus("idle");
+  }, 4000);
+} catch (error) {
+  console.error(error);
+
+  setStatus("error");
+
+  setTimeout(() => {
+    setStatus("idle");
+  }, 4000);
+}
 };
 
   return (
@@ -74,8 +88,7 @@ export function Contact() {
             </h2>
 
             <p className="font-mono text-sm text-muted-foreground leading-relaxed max-w-md">
-              Have a complex dataset to prune, an algorithmic structure to optimize, or just want to chat about AI?
-              Open a secure channel.
+              Whether you have a startup idea, a freelance project, or an opportunity to collaborate, I'm always open to building something meaningful. Initiate a secure transmission.
             </p>
 
             <div className="terminal-window">
@@ -169,7 +182,12 @@ export function Contact() {
                       "repeating-linear-gradient(45deg, var(--neon) 0 6px, transparent 6px 12px)",
                   }}
                 />
-                <span className="relative z-10">EXECUTE_TRANSMISSION ↗</span>
+                <span className="relative z-10">
+                  {status === "idle" && "EXECUTE_TRANSMISSION ↗"}
+                  {status === "loading" && "ESTABLISHING_CHANNEL..."}
+                  {status === "success" && "PACKET_DELIVERED ✓"}
+                  {status === "error" && "TRANSMISSION_FAILED ✕"}
+                </span>
               </button>
 
               {/* Social icons below send button */}
