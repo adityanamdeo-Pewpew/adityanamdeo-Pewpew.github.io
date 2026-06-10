@@ -14,7 +14,7 @@ const socials = [
   { Icon: LinkedinIcon, label: "LinkedIn", href: "https://www.linkedin.com/in/aditya-namdeo-aa21b5368/" },
   { Icon: Instagram, label: "Instagram", href: "https://instagram.com/" },
   { Icon: Twitter, label: "Twitter", href: "https://x.com/Aditya_Namdeo_" },
-  { Icon: Mail, label: "Email", href: "mailto:anni.namdeo@gmail.com" },
+  { Icon: Mail, label: "Email", href: "https://mail.google.com/mail/?view=cm&fs=1&to=anni.namdeo@gmail.com" },
 ];
 
 export function Contact() {
@@ -101,7 +101,7 @@ try {
               <div className="p-5 font-mono text-sm space-y-2">
                 <div>
                   <span className="text-[var(--cyan)]">[MAIL]</span>{" "}
-                  <a href="mailto:your.email@domain.com" className="underline decoration-dotted underline-offset-4 hover:text-[var(--neon)] transition-colors">
+                  <a href="mailto:anni.namdeo@gmail.com" className="underline decoration-dotted underline-offset-4 hover:text-[var(--neon)] transition-colors">
                     [ DECRYPT_MAILTO ]
                   </a>
                 </div>
