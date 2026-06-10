@@ -1,4 +1,5 @@
 import { useState } from "react";
+import emailjs from "@emailjs/browser";
 // FIX: Github must have a lowercase 'h' in lucide-react
 import {
   Github,
@@ -13,7 +14,7 @@ const socials = [
   { Icon: LinkedinIcon, label: "LinkedIn", href: "https://www.linkedin.com/in/aditya-namdeo-aa21b5368/" },
   { Icon: Instagram, label: "Instagram", href: "https://instagram.com/" },
   { Icon: Twitter, label: "Twitter", href: "https://x.com/Aditya_Namdeo_" },
-  { Icon: Mail, label: "Email", href: "mailto:your.email@domain.com" },
+  { Icon: Mail, label: "Email", href: "mailto:anni.namdeo@gmail.com" },
 ];
 
 export function Contact() {
@@ -29,11 +30,33 @@ export function Contact() {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    // Handle transmission logic here (e.g., API call)
-    console.log("Transmission Payload:", formData);
-  };
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  e.preventDefault();
+
+  try {
+    await emailjs.send(
+      "service_ul7906m",
+      "template_oxh8c7i",
+      {
+        name: formData.name,
+        email: formData.email,
+        message: formData.message,
+      },
+      "7qHJGunVMO9mr05af"
+    );
+
+    alert("TRANSMISSION_SUCCESSFUL ✅");
+
+    setFormData({
+      name: "",
+      email: "",
+      message: "",
+    });
+  } catch (error) {
+    console.error(error);
+    alert("TRANSMISSION_FAILED ❌");
+  }
+};
 
   return (
     <section id="contact" className="relative px-6 py-32">
@@ -87,7 +110,7 @@ export function Contact() {
                   </span>
                 </div>
                 <div className="text-muted-foreground">
-                  Looking for Machine Learning, Data Engineering, and intelligent systems collaborations.
+                  Available for web development, full-stack projects, and freelance opportunities.
                 </div>
               </div>
             </div>
