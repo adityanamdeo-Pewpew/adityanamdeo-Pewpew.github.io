@@ -21,8 +21,9 @@ export function Nav() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  const handleNavigation = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+  const handleNavigation = (href: string) => {
     setIsOpen(false);
+    // Delay allows the menu to close smoothly before jumping to the section
     setTimeout(() => {
       window.location.href = href;
     }, 50);
@@ -31,9 +32,10 @@ export function Nav() {
   return (
     <header className={`fixed top-7 left-1/2 -translate-x-1/2 z-50 transition-all duration-500 will-change-transform ${scrolled || isOpen ? "w-[min(900px,92vw)]" : "w-[min(1100px,94vw)]"}`}>
       {/* 
-        FIX: Using your theme's exact variables.
-        - bg-[var(--background)] ensures it matches your site's dark navy/black exactly.
-        - border-[var(--primary)]/20 adds the subtle red neon glow to the edges.
+        Theme Fix & Performance Guard:
+        - Uses your exact theme variables (`var(--background)`, `var(--primary)`)
+        - Runs without backdrop blurs on mobile sizes to maximize scrolling performance, 
+          re-activating `md:glass-strong` cleanly on computers.
       */}
       <nav className="rounded-xl overflow-hidden border border-[var(--primary)]/20 bg-[var(--background)]/95 md:bg-[var(--background)]/40 md:glass-strong shadow-[0_0_20px_rgba(0,0,0,0.5)] transform-gpu transition-all duration-300">
         
@@ -49,7 +51,7 @@ export function Nav() {
 
         {/* Main Nav Body */}
         <div className="px-5 py-2.5 flex items-center justify-between">
-          <a href="#top" onClick={(e) => handleNavigation(e, "#top")} className="flex items-center gap-2 group">
+          <a href="#top" onClick={() => handleNavigation("#top")} className="flex items-center gap-2 group">
             <span className="relative inline-flex h-8 w-8 items-center justify-center rounded-md bg-gradient-to-br from-[var(--cyan)] via-[var(--neon)] to-[var(--purple)] text-[10px] font-bold text-background animate-pulse-glow shadow-[0_0_10px_rgba(var(--neon),0.3)]">
               AN
             </span>
@@ -104,7 +106,7 @@ export function Nav() {
                   <li key={l.href}>
                     <a 
                       href={l.href} 
-                      onClick={(e) => handleNavigation(e, l.href)}
+                      onClick={() => handleNavigation(l.href)}
                       className="flex items-center px-4 py-3 rounded-lg text-muted-foreground hover:text-[var(--neon)] hover:bg-[var(--neon)]/5 transition-all border border-transparent hover:border-[var(--neon)]/10"
                     >
                       <span className="text-[var(--neon)] mr-4 opacity-70 font-bold">&gt;</span>
@@ -115,7 +117,7 @@ export function Nav() {
                 <li className="mt-4 px-2 pb-4">
                   <a 
                     href="#contact" 
-                    onClick={(e) => handleNavigation(e, "#contact")}
+                    onClick={() => handleNavigation("#contact")}
                     className="flex justify-center items-center w-full py-4 rounded-lg bg-gradient-to-r from-[var(--neon)] to-[var(--purple)] text-background text-[11px] font-black tracking-widest shadow-[0_0_25px_rgba(var(--neon),0.3)]"
                   >
                     $ INITIATE_TRANSMISSION
