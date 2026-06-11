@@ -12,7 +12,7 @@ import {
 const socials = [
   { Icon: Github, label: "GitHub", href: "https://github.com/adityanamdeo-Pewpew" },
   { Icon: LinkedinIcon, label: "LinkedIn", href: "https://www.linkedin.com/in/aditya-namdeo-aa21b5368/" },
-  { Icon: Instagram, label: "Instagram", href: "https://instagram.com/" },
+  { Icon: Instagram, label: "Instagram", href: "https://www.instagram.com/guy.specs/" },
   { Icon: Twitter, label: "Twitter", href: "https://x.com/Aditya_Namdeo_" },
   { Icon: Mail, label: "Email", href: "https://mail.google.com/mail/?view=cm&fs=1&to=anni.namdeo@gmail.com" },
 ];
