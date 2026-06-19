@@ -12,11 +12,7 @@ export function Footer() {
         </div>
         <div className="mt-14 flex flex-wrap items-center justify-between gap-6 font-mono text-xs text-muted-foreground">
           <div>© 2026 · Designed & developed by Aditya Namdeo.</div>
-          <div className="flex gap-4">
-            {["GitHub", "LinkedIn", "Instagram", "Email"].map((s) => (
-              <a key={s} href="#" className="hover:text-[var(--neon)] transition-colors">{s}</a>
-            ))}
-          </div>
+          
           <div>Built with React + modern tech ◆</div>
         </div>
       </div>
