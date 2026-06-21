@@ -20,9 +20,18 @@ export function ThemeToggle() {
 
   const toggle = () => {
     const next: Theme = theme === "dark" ? "light" : "dark";
+    
+    // 1. ADDED: Tell the browser to temporarily listen for smooth transitions
+    document.documentElement.classList.add("theme-transition-active");
+    
     setTheme(next);
     document.documentElement.classList.toggle("light", next === "light");
     localStorage.setItem("theme", next);
+    
+    // 2. ADDED: Remove the listener right after the 300ms fade finishes to save laptop GPU load
+    setTimeout(() => {
+      document.documentElement.classList.remove("theme-transition-active");
+    }, 300);
   };
 
   const isDark = theme === "dark";
