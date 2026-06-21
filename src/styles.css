@@ -291,3 +291,38 @@ html.light .terminal-bar {
   color: oklch(0.4 0.04 30);
 }
 
+/* ==========================================================================
+   MOBILE PERFORMANCE OPTIMIZATION (Fixes Touch Lag & Brightness Flashing)
+   ========================================================================== */
+
+/* Separate content sections into isolated composite layers to prevent overlay blending lag */
+section {
+  isolation: isolate;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+/* 1. We override the core glass classes inside standard CSS media rules here.
+  This changes their look on mobile without nesting Tailwind `@utility` directives.
+*/
+@media (max-width: 768px) {
+  /* Turn off full-screen CRT flickering vignette overlay on phones */
+  body::after {
+    animation: none !important;
+    background: transparent !important;
+  }
+
+  /* Lower blur depth and lock the background color to fix mobile lag/brightness shifts */
+  .glass {
+    backdrop-filter: blur(10px) saturate(120%) !important;
+    -webkit-backdrop-filter: blur(10px) saturate(120%) !important;
+    background: oklch(from var(--color-background) l c h / 0.75) !important;
+  }
+
+  .glass-strong {
+    backdrop-filter: blur(12px) saturate(130%) !important;
+    -webkit-backdrop-filter: blur(12px) saturate(130%) !important;
+    background: oklch(from var(--color-background) l c h / 0.85) !important;
+  }
+}
