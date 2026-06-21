@@ -290,12 +290,10 @@ html.light .terminal-bar {
   border-bottom: 1px solid oklch(0.2 0.03 260 / 0.1);
   color: oklch(0.4 0.04 30);
 }
-
 /* ==========================================================================
-   MOBILE PERFORMANCE OPTIMIZATION (Fixes Touch Lag & Brightness Flashing)
+   MOBILE PERFORMANCE OPTIMIZATION (The Absolute Brightness Fix)
    ========================================================================== */
 
-/* Separate content sections into isolated composite layers to prevent overlay blending lag */
 section {
   isolation: isolate;
   transform: translateZ(0);
@@ -303,26 +301,43 @@ section {
   -webkit-backface-visibility: hidden;
 }
 
-/* 1. We override the core glass classes inside standard CSS media rules here.
-  This changes their look on mobile without nesting Tailwind `@utility` directives.
-*/
 @media (max-width: 768px) {
-  /* Turn off full-screen CRT flickering vignette overlay on phones */
-  body::after {
-    animation: none !important;
-    background: transparent !important;
+  /* 
+    1. KILL BLEND MODES & DYNAMIC BACKGROUNDS 
+    This stops the GPU from recalculating layout layers on scroll.
+  */
+  body, html.light body {
+    background-attachment: scroll !important;
+    background-image: none !important;
+    background-color: var(--color-background) !important;
   }
 
-  /* Lower blur depth and lock the background color to fix mobile lag/brightness shifts */
+  /* 
+    2. DISABLE THE CRT OVERLAYS COMPLETELY ON MOBILE
+    Removing mix-blend-mode eliminates the automatic contrast/brightness shifting bug.
+  */
+  body::before, html.light body::before,
+  body::after, html.light body::after {
+    content: none !important;
+    animation: none !important;
+    background: transparent !important;
+    display: none !important;
+    mix-blend-mode: normal !important;
+  }
+
+  /* 
+    3. LOWER BLUR DEPTH
+    Locks panels down cleanly so they don't jump opacities.
+  */
   .glass {
     backdrop-filter: blur(10px) saturate(120%) !important;
     -webkit-backdrop-filter: blur(10px) saturate(120%) !important;
-    background: oklch(from var(--color-background) l c h / 0.75) !important;
+    background: oklch(from var(--color-background) l c h / 0.8) !important;
   }
 
   .glass-strong {
     backdrop-filter: blur(12px) saturate(130%) !important;
     -webkit-backdrop-filter: blur(12px) saturate(130%) !important;
-    background: oklch(from var(--color-background) l c h / 0.85) !important;
+    background: oklch(from var(--color-background) l c h / 0.9) !important;
   }
 }
