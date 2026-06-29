@@ -2,15 +2,14 @@ import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 
 const skills = [
-  { name: "Java", level: 92 },
-  { name: "Spring Boot", level: 88 },
-  { name: "React", level: 70 },
-  { name: "JavaScript", level: 86 },
-  { name: "MySQL", level: 80 },
-  { name: "REST APIs", level: 90 },
-  { name: "HTML / CSS", level: 92 },
-  { name: "Git / GitHub", level: 84 },
-  { name: "Problem Solving", level: 90 },
+  { name: "Java", level: 92, status: "0xEX" },
+  { name: "Spring Boot", level: 88, status: "0xAD" },
+  { name: "React", level: 70, status: "0xIN" },
+  { name: "JavaScript", level: 86, status: "0xAD" },
+  { name: "MySQL", level: 80, status: "0xAD" },
+  { name: "REST APIs", level: 90, status: "0xEX" },
+  { name: "HTML / CSS", level: 92, status: "0xEX" },
+  { name: "Git / GitHub", level: 84, status: "0xAD" },
 ];
 
 export function Skills() {
@@ -25,90 +24,121 @@ export function Skills() {
     return () => window.removeEventListener("resize", checkScreenSize);
   }, []);
 
+  const tracks = [
+    { label: "Backend / Core", value: 85, radius: 78, color: "stroke-[var(--cyan,rgba(6,182,212,0.85))]", dot: "bg-[var(--cyan,rgb(6,182,212))]" },
+    { label: "Frontend / UI", value: 70, radius: 58, color: "stroke-[var(--purple,rgba(168,85,247,0.85))]", dot: "bg-[var(--purple,rgb(168,85,247))]" },
+    { label: "Databases", value: 60, radius: 38, color: "stroke-[var(--neon,rgba(239,68,68,0.85))]", dot: "bg-[var(--neon,rgb(239,68,68))]" },
+  ];
+
   return (
-    <section id="skills" className="relative px-6 py-20 md:py-32 overflow-hidden">
+    <section id="skills" className="relative px-4 sm:px-6 py-16 md:py-32 overflow-hidden bg-transparent">
       <div className="max-w-6xl mx-auto">
-        <div className="font-mono text-xs text-[var(--neon)] uppercase tracking-[0.3em] mb-3">
+        <div className="font-mono text-xs text-[var(--neon)] dark:text-[var(--neon)] uppercase tracking-[0.3em] mb-3">
           02 / Skills
         </div>
-        <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight mb-14 max-w-3xl">
+        <h2 className="text-3xl sm:text-5xl lg:text-6xl font-bold tracking-tight mb-10 md:mb-14 text-foreground">
           Tools that turn ideas into <span className="neon-text">products.</span>
         </h2>
 
-        <div className="grid gap-12 md:grid-cols-[1fr_1fr] items-center transform-gpu">
+        {/* Added transform-gpu to the main structural parent block to accelerate overall rendering */}
+        <div className="grid gap-10 md:gap-12 lg:grid-cols-[1.15fr_0.85fr] items-center transform-gpu">
           
-          {/* Progress Bars */}
-          <div className="space-y-4">
+          {/* Main Skill Panels Card */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-10 gap-y-6 bg-foreground/[0.02] dark:bg-white/[0.02] border border-foreground/10 dark:border-white/5 p-5 sm:p-8 rounded-2xl backdrop-blur-md shadow-sm transform-gpu">
             {skills.map((s, i) => (
-              <motion.div
-                key={s.name}
-                initial={isDesktop ? { opacity: 0, x: -20 } : { opacity: 1, x: 0 }}
-                whileInView={isDesktop ? { opacity: 1, x: 0 } : {}}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.05 }}
-              >
-                <div className="mb-1 flex justify-between text-sm">
-                  <span className="font-mono">{s.name}</span>
-                  <span className="text-muted-foreground">{s.level}%</span>
+              <div key={s.name} className="flex flex-col justify-center transform-gpu">
+                <div className="mb-2 flex justify-between items-center text-sm font-mono">
+                  <div className="flex items-center space-x-2.5">
+                    <span className="w-2 h-2 rounded-sm bg-gradient-to-br from-[var(--cyan,#06b6d4)] to-[var(--neon,#ef4444)] rotate-45" />
+                    <span className="text-foreground/90 font-medium tracking-wide">{s.name}</span>
+                  </div>
+                  <span className="text-xs text-muted-foreground bg-foreground/5 dark:bg-white/5 px-2 py-0.5 border border-foreground/10 dark:border-white/10 rounded">
+                    {s.status}
+                  </span>
                 </div>
-                <div className="h-1.5 overflow-hidden rounded-full bg-white/5">
+
+                {/* Optimized layout track bars */}
+                <div className="h-1.5 overflow-hidden rounded-full bg-foreground/10 dark:bg-white/5 relative transform-gpu">
                   <motion.div
                     initial={{ width: isDesktop ? 0 : `${s.level}%` }}
-                    whileInView={isDesktop ? { width: `${s.level}%` } : {}}
-                    viewport={{ once: true }}
-                    transition={{ duration: 1.2, delay: i * 0.06, ease: "easeOut" }}
-                    className="h-full bg-gradient-to-r from-[var(--cyan)] via-[var(--neon)] to-[var(--purple)]"
+                    whileInView={{ width: `${s.level}%` }}
+                    viewport={{ once: true, margin: "-50px" }}
+                    transition={{ duration: isDesktop ? 1.2 : 0.4, delay: isDesktop ? i * 0.04 : 0, ease: "easeOut" }}
+                    className="h-full bg-gradient-to-r from-[var(--cyan,#06b6d4)] via-[var(--neon,#ef4444)] to-[var(--purple,#a855f7)] rounded-full"
                   />
                 </div>
-              </motion.div>
+              </div>
             ))}
           </div>
 
-          {/* Radar Graphics Layout */}
-          <div className="relative aspect-square max-w-[340px] md:max-w-none mx-auto w-full transform-gpu">
-            <div className="absolute inset-0 rounded-full border border-white/10" />
-            <div className="absolute inset-6 rounded-full border border-white/10" />
-            <div className="absolute inset-12 rounded-full border border-white/10" />
-            <div className="absolute inset-20 rounded-full border border-[var(--cyan)]/30" />
-            
-            {/* Central Core Element with Fixed Glow */}
-            <div className="absolute inset-0 flex items-center justify-center">
-              <div 
-                className={`glass-strong flex h-24 w-24 md:h-28 md:w-28 items-center justify-center rounded-full text-center
-                  ${isDesktop ? 'animate-pulse-glow' : 'border border-[var(--primary)]/30'}`}
-                style={!isDesktop ? {
-                  // FIX: Apply a powerful, hardware-accelerated static neon red drop shadow only on mobile
-                  boxShadow: "0 0 25px oklch(0.55 0.21 22 / 0.5)",
-                  border: "1px solid oklch(0.55 0.21 22 / 0.4)"
-                } : undefined}
+          {/* Clean Concentric Grid Graph */}
+          <div className="relative flex flex-col items-center justify-center py-4 transform-gpu">
+            <div className="relative w-[240px] h-[240px] md:w-[280px] md:h-[280px] transform-gpu">
+              
+              {/* Animation attributes strictly isolated to only fire on confirmed desktop nodes */}
+              <motion.div
+                className="w-full h-full transform-gpu"
+                animate={isDesktop ? { rotate: 360 } : { rotate: 0 }}
+                transition={{ duration: 35, repeat: Infinity, ease: "linear" }}
               >
-                <span className="neon-text font-mono text-xs md:text-sm font-bold">
-                  FULL<br />STACK
-                </span>
+                <svg className="w-full h-full transform -rotate-90" viewBox="0 0 200 200">
+                  {tracks.map((track, idx) => {
+                    const circumference = 2 * Math.PI * track.radius;
+                    const strokeOffset = circumference - (track.value / 100) * circumference;
+
+                    return (
+                      <g key={idx}>
+                        <circle
+                          cx="100"
+                          cy="100"
+                          r={track.radius}
+                          className="fill-none stroke-foreground/5 dark:stroke-white/5"
+                          strokeWidth="9"
+                        />
+                        <motion.circle
+                          cx="100"
+                          cy="100"
+                          r={track.radius}
+                          className={`fill-none ${track.color}`}
+                          strokeWidth="9"
+                          strokeLinecap="round"
+                          strokeDasharray={circumference}
+                          initial={{ strokeDashoffset: isDesktop ? circumference : strokeOffset }}
+                          whileInView={{ strokeDashoffset: strokeOffset }}
+                          viewport={{ once: true }}
+                          transition={{ duration: isDesktop ? 1.4 : 0.3, ease: "easeOut", delay: isDesktop ? idx * 0.1 : 0 }}
+                        />
+                      </g>
+                    );
+                  })}
+                </svg>
+              </motion.div>
+
+              {/* Central Identity display layer with mobile hardware adjustments applied */}
+              <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                <motion.div 
+                  className="w-[105px] h-[105px] bg-background border border-foreground/10 dark:border-white/10 rounded-full flex flex-col items-center justify-center text-center shadow-md backdrop-blur-lg transform-gpu"
+                  animate={isDesktop ? { scale: [1, 1.03, 1] } : {}}
+                  transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+                >
+                  <span className="text-[9px] font-mono text-muted-foreground uppercase tracking-widest">SYSTEM</span>
+                  <span className="text-[var(--neon)] font-mono text-xs font-bold tracking-wider mt-0.5">MATRIX</span>
+                </motion.div>
               </div>
             </div>
 
-            {/* Tech Tags */}
-            {["Java", "Spring", "React", "MySQL", "REST", "Git", "JS", "HTML"].map((t, i) => {
-              const angle = (i / 8) * Math.PI * 2;
-              const radius = 40;
-              const x = 50 + Math.cos(angle) * radius;
-              const y = 50 + Math.sin(angle) * radius;
-              return (
-                <div
-                  key={t}
-                  className={`glass absolute -translate-x-1/2 -translate-y-1/2 rounded-full px-2.5 py-1 md:px-3 md:py-1.5 text-[10px] md:text-xs font-medium border border-white/5 bg-[var(--background)]/40
-                    ${isDesktop ? "animate-float" : ""}`}
-                  style={{ 
-                    left: `${x}%`, 
-                    top: `${y}%`, 
-                    animationDelay: isDesktop ? `${i * 0.3}s` : undefined 
-                  }}
-                >
-                  {t}
+            {/* Static descriptive label system mapping */}
+            <div className="mt-8 font-mono text-xs space-y-2.5 w-full max-w-[240px] transform-gpu">
+              {tracks.map((track, idx) => (
+                <div key={idx} className="flex items-center justify-between text-muted-foreground hover:text-foreground transition-colors duration-200">
+                  <div className="flex items-center space-x-2.5">
+                    <span className={`w-2 h-2 rounded-full ${track.dot} shadow-sm`} />
+                    <span className="font-medium">{track.label}</span>
+                  </div>
+                  <span className="text-[10px] opacity-60">// 0x0{idx + 1}</span>
                 </div>
-              );
-            })}
+              ))}
+            </div>
           </div>
 
         </div>
