@@ -38,15 +38,13 @@ export function Hero() {
   return (
     <section id="top" className="relative min-h-screen flex items-center justify-center px-6 pt-24 sm:pt-32 pb-20 overflow-hidden bg-[var(--background)]">
       
-      {/* 
-        PERFORMANCE UPGRADE: 
+      {/* PERFORMANCE UPGRADE: 
         - The grid background layer is restricted on mobile devices ('hidden md:block')
         - This prevents heavy canvas mask redraw lag during touch-scrolling phases.
       */}
       <div className="hidden md:block absolute inset-0 grid-bg opacity-40 [mask-image:radial-gradient(ellipse_at_center,black_30%,transparent_75%)]" />
       
-      {/* 
-        PERFORMANCE UPGRADE:
+      {/* PERFORMANCE UPGRADE:
         - Massive blur filters are hidden on mobile layouts ('hidden md:block') to completely stop UI rendering delays.
         - Desktop environments keep full dynamic floating behavior intact.
       */}
@@ -115,7 +113,13 @@ export function Hero() {
             <a href="#contact" className="glass-strong rounded-full px-6 py-3 text-sm font-semibold hover:bg-white/10 text-center transition-colors">
               Hire Me
             </a>
-            <a href="#" className="glass rounded-full px-6 py-3 text-sm font-semibold hover:bg-white/10 text-center transition-colors">
+            
+            {/* UPDATED: Directly serves and downloads your asset file from the /public folder path root */}
+            <a 
+              href="/Aditya_Namdeo_Resume.pdf" 
+              download="Aditya_Namdeo_Resume.pdf" 
+              className="glass rounded-full px-6 py-3 text-sm font-semibold hover:bg-white/10 text-center transition-colors cursor-pointer"
+            >
               Download Resume ↓
             </a>
           </motion.div>
