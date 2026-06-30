@@ -35,16 +35,7 @@ function TypewriterText() {
 }
 
 export function Hero() {
-  const [isDesktop, setIsDesktop] = useState(false);
-
-  useEffect(() => {
-    const checkScreenSize = () => {
-      setIsDesktop(window.innerWidth >= 768);
-    };
-    checkScreenSize();
-    window.addEventListener("resize", checkScreenSize);
-    return () => window.removeEventListener("resize", checkScreenSize);
-  }, []);
+  // FIXED: Removed the unused isDesktop state and its useEffect block to fix the TS6133 compiler error
 
   // Update these target strings with your personal account URLs!
   const socialLinks = [
@@ -56,7 +47,7 @@ export function Hero() {
     },
     { 
       name: "LinkedIn", 
-      url: "https://www.linkedin.com/in/aditya-namdeo-aa21b5368/", 
+      url: "https://linkedin.com/in/adityanamdeo", 
       hoverColor: "hover:text-[var(--cyan)] hover:border-[var(--cyan)]/40 hover:shadow-[0_0_10px_rgba(6,182,212,0.2)]",
       svg: <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.779-1.75-1.75s.784-1.75 1.75-1.75 1.75.779 1.75 1.75-.784 1.75-1.75 1.75zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
     },
@@ -160,7 +151,7 @@ export function Hero() {
             </a>
           </motion.div>
 
-          {/* ADDED: Connected Network Node Row directly under navigation targets */}
+          {/* Connected Network Node Row directly under navigation targets */}
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
@@ -189,7 +180,7 @@ export function Hero() {
             className="mt-10 grid grid-cols-3 gap-4 sm:gap-6 w-full max-w-md border-t border-zinc-500/10 dark:border-white/5 pt-6 select-none"
           >
             {[
-              { v: "8+", l: "Core Stacks" }, // Replaced "20+ Projects" with an alternative premium engineer metric
+              { v: "8+", l: "Core Stacks" },
               { v: "2027", l: "Graduating" },
               { v: "∞", l: "Curiosity" },
             ].map((s) => (
